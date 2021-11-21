@@ -1,16 +1,18 @@
 <template>
   <div>
-    <div v-for="(item, index) in list" :key="index">
-      {{ item.innerHTML }}
+    <div
+      :class="`${cn}__item`"
+      v-for="(item, index) in list"
+      :key="index"
+      @click="handleClick(item.el)"
+    >
+      {{ item.text }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, PropType, ref } from "vue";
-
-// TODO: levelのタイプを記載
-type TocLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 const COMPONENT_NAME = "Toc";
 
@@ -31,25 +33,46 @@ export default defineComponent({
   },
 
   setup(props) {
-    const list = ref<Element[]>([]);
+    const list = ref<any[]>([]);
 
     onMounted(() => {
       const selector = props.container ? `.${props.container}>*` : "*";
-      const listItems = document.querySelectorAll(selector);
+      const items = document.querySelectorAll(selector);
 
-      listItems.forEach((item) => {
+      items.forEach((item) => {
         const nodeName = item.nodeName.toLowerCase();
 
         if (props.level.includes(nodeName)) {
-          list.value.push(item);
+          list.value.push({
+            el: item,
+            text: item.innerHTML,
+            offset: (item as any).offsetTop,
+          });
         }
       });
     });
 
+    const handleClick = (el: Element) => {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+
     return {
       cn: COMPONENT_NAME,
       list,
+      handleClick,
     };
   },
 });
 </script>
+
+<style>
+.Toc__item {
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 2rem;
+}
+
+.Toc__item:hover {
+  color: blue;
+}
+</style>

@@ -7,8 +7,8 @@ import Toc from "./components/Toc.vue";
 
 <template>
   <div class="container">
+    <Toc class="toc" />
     <Title />
-    <Toc />
   </div>
 </template>
 
@@ -24,5 +24,14 @@ import Toc from "./components/Toc.vue";
 
 .container {
   display: flex;
+  margin: 0 auto;
+  max-width: 860px;
+  position: relative;
+}
+
+.toc {
+  position: fixed;
+  transform: translate(-100%, 20%);
+  padding-right: 3rem;
 }
 </style>
