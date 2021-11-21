@@ -6,7 +6,7 @@
       :key="index"
       @click="handleClick(item.el)"
     >
-      {{ item.text }}
+      <span :class="`${cn}__item--${item.tag}`">{{ item.text }}</span>
     </div>
   </div>
 </template>
@@ -47,6 +47,7 @@ export default defineComponent({
             el: item,
             text: item.innerHTML,
             offset: (item as any).offsetTop,
+            tag: item.nodeName.toLowerCase(),
           });
         }
       });
@@ -69,10 +70,34 @@ export default defineComponent({
 .Toc__item {
   cursor: pointer;
   font-size: 20px;
-  line-height: 2rem;
+  line-height: 2.5rem;
 }
 
 .Toc__item:hover {
   color: blue;
+}
+
+.Toc__item--h1 {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.Toc__item--h2 {
+  font-weight: 500;
+  padding-left: 0.5rem;
+}
+
+.Toc__item--h3 {
+  padding-left: 1rem;
+}
+
+.Toc__item--h4 {
+  padding-left: 1.5rem;
+}
+
+.Toc__item--h5 {
+}
+
+.Toc__item--h6 {
 }
 </style>
