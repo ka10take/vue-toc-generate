@@ -6,7 +6,7 @@ import Toc from "./components/Toc.vue";
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <Title />
     <Toc />
   </div>
@@ -15,10 +15,14 @@ import Toc from "./components/Toc.vue";
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 60px; */
+}
+
+.container {
+  display: flex;
 }
 </style>
